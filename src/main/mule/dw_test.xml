@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="735444ef-a85f-474d-a5bc-b6b8e1231f06" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="dw_testFlow" doc:id="2577af7d-1607-4569-956e-4d0f118edc11" >
+		<http:listener doc:name="Listener" doc:id="aef29403-ee6b-4ad6-97a5-6177be3bc66f" config-ref="HTTP_Listener_config" path="/dw"/>
+		<ee:transform doc:name="Transform Message" doc:id="75538a18-aaa6-4c51-8eb8-6b66a1b5edc7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+import dateTimeConversion from DateFormatConversion
+---
+dateTimeConversion(now(), "dd/MM/yy")
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="fe896679-c6e9-4142-bf72-96f93491836e" />
+	</flow>
+</mule>
