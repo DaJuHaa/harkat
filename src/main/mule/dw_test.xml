@@ -20,6 +20,6 @@ dateTimeConversion(now(), "dd/MM/yy")
 ]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="fe896679-c6e9-4142-bf72-96f93491836e" />
+		<logger level="INFO" doc:name="Logger" doc:id="fe896679-c6e9-4142-bf72-96f93491836e" message="payload"/>
 	</flow>
 </mule>
